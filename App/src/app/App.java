@@ -8,26 +8,10 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         ArrayList<NominationForm> form = load();
-        for (var nominee : form) {
-            System.out.println("Teacher: " + nominee.name);
-            System.out.println("Email address: " + nominee.emailAddress);
-            System.out.println("School: " + nominee.school);
-            System.out.println("Position: " + nominee.position);
-            System.out.println("Relationship: " + nominee.relationship);
-            System.out.println("Student Name: " + nominee.studentName);
-            System.out.println("Student Age: " + nominee.studentAge);
-            System.out.println("Student Contact: " + nominee.studentContact);
-            System.out.println("Expected Graduation: " + nominee.expectedGraduation);
-            System.out.println("Aptitude: " + nominee.aptitude);
-            System.out.println("Perseverance: " + nominee.perseverance);
-            System.out.println("Dedication: " + nominee.dedication);
-            System.out.println("Work Ethic: " + nominee.workEthic);
-            System.out.println("Misc: " + nominee.misc);
-            System.out.println(" --------- ");
-        }
         NominationForm nomination = signUp();
         form.add(nomination);
         save(form);
+        System.out.println("Thank your for your submission");
 
     }
 
@@ -36,8 +20,8 @@ public class App {
         System.out.println("Tell us about yourself as a teacher!");
         System.out.print("What is you name: ");
         String name = sc.nextLine();
-        System.out.print("What is your email address: ");
-        String emailAddress = sc.nextLine();
+        System.out.print("What is your contact: ");
+        String emailAddress = validEmail();
         System.out.print("what school district are you affiliated with: ");
         String school = sc.nextLine();
         System.out.print("What is your position at your place of work: ");
@@ -50,7 +34,7 @@ public class App {
         System.out.print("What is the nominee's age: ");
         Integer studentAge = sc2.nextInt();
         System.out.print("What is the student's contact information: ");
-        String studentContact = sc.nextLine();
+        String studentContact = validEmail();
         System.out.print("When are they expected to graduate: ");
         String expectedGraduation = sc.nextLine();
         System.out.print("Has this student shown any strong ability to think logically or strategically: ");
@@ -64,6 +48,7 @@ public class App {
         String workEthic = sc.nextLine();
         System.out.print("Any miscellaneous things we should know about them: ");
         String misc = sc.nextLine();
+        sc2.close();
         return new NominationForm(name, emailAddress, school, position, relationship, studentName, studentAge,
                 studentContact, expectedGraduation, aptitude, perseverance, dedication, workEthic, misc);
     }
@@ -88,6 +73,17 @@ public class App {
             return nominated;
         } catch (IOException | ClassNotFoundException ex) {
             return new ArrayList<NominationForm>();
+        }
+    }
+
+    public static String validEmail() {
+        while (true) {
+            String emailAddress = sc.nextLine();
+            if (emailAddress.contains("@")) {
+                return emailAddress;
+            } else {
+                System.out.println("That's not a valid email");
+            }
         }
     }
 }
